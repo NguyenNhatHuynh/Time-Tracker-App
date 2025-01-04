@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:time_tracker/screens/home_screen.dart';
-import 'package:time_tracker/screens/timer_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:time_tracker/utils/theme_manager.dart';
+import 'package:time_tracker/screens/timer_screen.dart';
+import 'package:time_tracker/screens/current_time_screen.dart';
 
 void main() {
   runApp(
@@ -31,25 +31,37 @@ class MyApp extends StatelessWidget {
       themeMode: themeManager.isDark ? ThemeMode.dark : ThemeMode.light,
       initialRoute: '/',
       routes: {
-        '/': (context) => HomeScreen(),
-        '/timer': (context) => TimerScreen(),
+        '/': (context) => BaseScreen(),
+        '/timer': (context) => BaseScreen(selectedIndex: 1),
+        '/current_time': (context) => BaseScreen(selectedIndex: 2),
       },
     );
   }
 }
 
-class HomeScreen extends StatefulWidget {
+class BaseScreen extends StatefulWidget {
+  final int selectedIndex;
+
+  BaseScreen({this.selectedIndex = 0});
+
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _BaseScreenState createState() => _BaseScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
+class _BaseScreenState extends State<BaseScreen> {
+  late int _selectedIndex;
 
   final List<Widget> _screens = [
     HomeContent(),
     TimerScreen(),
+    CurrentTimeScreen(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.selectedIndex;
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -84,6 +96,10 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: Icon(Icons.timer),
             label: 'Timer',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.access_time),
+            label: 'Current Time',
+          ),
         ],
       ),
     );
@@ -95,16 +111,58 @@ class HomeContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: GridView.count(
+        crossAxisCount: 2,
+        crossAxisSpacing: 16,
+        mainAxisSpacing: 16,
         children: [
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/timer');
-            },
-            child: Text('Go to Timer Screen'),
+          _buildFeatureCard(
+            context,
+            icon: Icons.timer,
+            label: 'Timer Screen',
+            routeName: '/timer',
+          ),
+          _buildFeatureCard(
+            context,
+            icon: Icons.access_time,
+            label: 'Current Time Screen',
+            routeName: '/current_time',
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildFeatureCard(
+    BuildContext context, {
+    required IconData icon,
+    required String label,
+    required String routeName,
+  }) {
+    // Lấy màu dựa trên chế độ sáng/tối
+    final iconColor = Theme.of(context).brightness == Brightness.dark
+        ? Colors.white
+        : Colors.black;
+
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, routeName),
+      child: Card(
+        elevation: 4,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 48, color: iconColor), // Sử dụng màu đã xác định
+            SizedBox(height: 8),
+            Text(
+              label,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ),
     );
   }
