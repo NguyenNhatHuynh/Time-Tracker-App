@@ -14,9 +14,9 @@ lib/
 ├── main.dart                    // Điểm bắt đầu của ứng dụng
 ├── screens/                     // Thư mục chứa các màn hình
 │   ├── home_screen.dart         // Màn hình chính (Home)
-│   ├── current_time_screen.dart // Hiển thị giờ hiện tại
-│   ├── countdown_screen.dart    // Đếm ngược
-│   ├── timer_screen.dart        // Hẹn giờ
+│   ├── current_time_screen.dart // Hiển thị giờ hiện tại (ok)
+│   ├── countdown_screen.dart    // Đếm ngược 
+│   ├── timer_screen.dart        // Hẹn giờ  (ok)
 │   ├── world_clock_screen.dart  // Giờ thế giới
 │   ├── stopwatch_screen.dart    // Bấm giờ
 │

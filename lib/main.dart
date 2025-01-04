@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:time_tracker/utils/theme_manager.dart';
 import 'package:time_tracker/screens/timer_screen.dart';
 import 'package:time_tracker/screens/current_time_screen.dart';
+import 'package:time_tracker/screens/stopwatch_screen.dart';
 
 void main() {
   runApp(
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => BaseScreen(),
         '/timer': (context) => BaseScreen(selectedIndex: 1),
         '/current_time': (context) => BaseScreen(selectedIndex: 2),
+        '/stopwatch': (context) => BaseScreen(selectedIndex: 3),
       },
     );
   }
@@ -55,6 +57,7 @@ class _BaseScreenState extends State<BaseScreen> {
     HomeContent(),
     TimerScreen(),
     CurrentTimeScreen(),
+    StopwatchScreen(),
   ];
 
   @override
@@ -94,11 +97,15 @@ class _BaseScreenState extends State<BaseScreen> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.timer),
-            label: 'Timer',
+            label: 'Hẹn Giờ',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.access_time),
-            label: 'Current Time',
+            label: 'Hiển thị giờ hiện tại',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.access_time),
+            label: 'Bấm Giờ',
           ),
         ],
       ),
@@ -119,14 +126,20 @@ class HomeContent extends StatelessWidget {
           _buildFeatureCard(
             context,
             icon: Icons.timer,
-            label: 'Timer Screen',
+            label: 'Hẹn Giờ',
             routeName: '/timer',
           ),
           _buildFeatureCard(
             context,
             icon: Icons.access_time,
-            label: 'Current Time Screen',
+            label: 'Hiển thị giờ hiện tại',
             routeName: '/current_time',
+          ),
+          _buildFeatureCard(
+            context,
+            icon: Icons.access_time,
+            label: 'Bấm Giờ',
+            routeName: '/stopwatch',
           ),
         ],
       ),
