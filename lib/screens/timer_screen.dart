@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:audioplayers/audioplayers.dart'; // Import thư viện audioplayers
+import 'package:audioplayers/audioplayers.dart';
 
 class TimerScreen extends StatefulWidget {
   @override
@@ -16,16 +16,16 @@ class _TimerScreenState extends State<TimerScreen> {
 
   late String _timerText;
 
-  late AudioPlayer _audioPlayer; // Khai báo AudioPlayer
-  late AudioCache _audioCache; // Khai báo AudioCache
+  late AudioPlayer _audioPlayer;
+  late AudioCache _audioCache;
 
   @override
   void initState() {
     super.initState();
     _totalSeconds = 0;
     _timerText = "00:00:00";
-    _audioPlayer = AudioPlayer(); // Khởi tạo AudioPlayer
-    _audioCache = AudioCache(); // Khởi tạo AudioCache
+    _audioPlayer = AudioPlayer();
+    _audioCache = AudioCache();
   }
 
   void _updateTimer() {
@@ -35,36 +35,54 @@ class _TimerScreenState extends State<TimerScreen> {
       _isPaused = false;
     });
 
-    Future.delayed(Duration(seconds: 1), _countdown);
+    _countdown();
   }
 
   void _countdown() {
     if (_totalSeconds > 0 && _isRunning) {
-      setState(() {
-        _totalSeconds--;
-        int hours = (_totalSeconds / 3600).floor();
-        int minutes = ((_totalSeconds % 3600) / 60).floor();
-        int seconds = _totalSeconds % 60;
+      Future.delayed(Duration(seconds: 1), () {
+        if (_isRunning) {
+          setState(() {
+            _totalSeconds--;
+            int hours = (_totalSeconds / 3600).floor();
+            int minutes = ((_totalSeconds % 3600) / 60).floor();
+            int seconds = _totalSeconds % 60;
 
-        _timerText =
-            "${_formatTime(hours)}:${_formatTime(minutes)}:${_formatTime(seconds)}";
+            _timerText =
+                "${_formatTime(hours)}:${_formatTime(minutes)}:${_formatTime(seconds)}";
+          });
+          _countdown();
+        }
       });
-      Future.delayed(Duration(seconds: 1), _countdown);
-    } else {
+    } else if (_totalSeconds == 0 && _isRunning) {
       setState(() {
         _isRunning = false;
         _timerText = "00:00:00";
       });
 
-      // Phát âm thanh khi hết giờ
       _playSound();
+      _showTimeUpDialog();
     }
   }
 
   void _playSound() async {
-    await _audioCache
-        .play('hetgio_notification.mp3'); // Sử dụng AudioCache để phát âm thanh
-    print("Audio played successfully");
+    await _audioCache.play('assets/hetgio_notification.mp3');
+  }
+
+  void _showTimeUpDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("Hết giờ!"),
+        content: Text("Thời gian đã kết thúc."),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text("OK"),
+          ),
+        ],
+      ),
+    );
   }
 
   String _formatTime(int time) {
@@ -84,13 +102,14 @@ class _TimerScreenState extends State<TimerScreen> {
       _isPaused = false;
     });
 
-    Future.delayed(Duration(seconds: 1), _countdown);
+    _countdown();
   }
 
   void _cancelTimer() {
     setState(() {
       _isRunning = false;
       _isPaused = false;
+      _totalSeconds = 0;
       _timerText = "00:00:00";
     });
   }
@@ -98,7 +117,10 @@ class _TimerScreenState extends State<TimerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Timer")),
+      appBar: AppBar(
+        title: Text("Timer", style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.blueAccent,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -106,61 +128,50 @@ class _TimerScreenState extends State<TimerScreen> {
           children: [
             Text(
               _timerText,
-              style: TextStyle(fontSize: 72, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 72,
+                fontWeight: FontWeight.bold,
+                color: Colors.blueAccent,
+              ),
             ),
             SizedBox(height: 30),
-            _buildTimeInput(
-                "Hours", _hour, (value) => setState(() => _hour = value)),
-            SizedBox(height: 10),
-            _buildTimeInput(
-                "Minutes", _minute, (value) => setState(() => _minute = value)),
-            SizedBox(height: 10),
-            _buildTimeInput(
-                "Seconds", _second, (value) => setState(() => _second = value)),
+            _buildTimeInputRow(),
             SizedBox(height: 40),
-            if (_isRunning) ...[
-              ElevatedButton(
-                onPressed: _pauseTimer,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orange, // More visible color
-                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                  textStyle: TextStyle(fontSize: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: _isRunning
+                      ? _pauseTimer
+                      : (_isPaused ? _resumeTimer : _updateTimer),
+                  icon: Icon(
+                    _isRunning
+                        ? Icons.pause
+                        : (_isPaused ? Icons.play_arrow : Icons.play_arrow),
+                    color: Colors.white,
+                  ),
+                  label: Text(
+                      _isRunning
+                          ? "Tạm dừng"
+                          : (_isPaused ? "Tiếp tục" : "Bắt đầu"),
+                      style: TextStyle(color: Colors.white)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: _isRunning
+                        ? Colors.orange
+                        : (_isPaused ? Colors.green : Colors.blue),
+                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                  ),
                 ),
-                child: Text("Pause Timer"),
-              ),
-              SizedBox(height: 10),
-            ] else if (_isPaused) ...[
-              ElevatedButton(
-                onPressed: _resumeTimer,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                  textStyle: TextStyle(fontSize: 20),
+                ElevatedButton.icon(
+                  onPressed: _cancelTimer,
+                  icon: Icon(Icons.stop, color: Colors.white),
+                  label: Text("Hủy", style: TextStyle(color: Colors.white)),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                  ),
                 ),
-                child:
-                    Text("Resume Timer", style: TextStyle(color: Colors.black)),
-              ),
-              SizedBox(height: 10),
-            ],
-            ElevatedButton(
-              onPressed: _isRunning ? null : _updateTimer,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                textStyle: TextStyle(fontSize: 20),
-              ),
-              child: Text(_isRunning ? "Stop Timer" : "Start Timer",
-                  style: TextStyle(color: Colors.black)),
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: _cancelTimer,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.grey,
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                textStyle: TextStyle(fontSize: 20),
-              ),
-              child: Text("Cancel Timer"),
+              ],
             ),
           ],
         ),
@@ -168,21 +179,35 @@ class _TimerScreenState extends State<TimerScreen> {
     );
   }
 
-  Widget _buildTimeInput(String label, int value, Function(int) onChanged) {
+  Widget _buildTimeInputRow() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        _buildTimeInput("Giờ", _hour, (value) => setState(() => _hour = value)),
+        _buildTimeInput(
+            "Phút", _minute, (value) => setState(() => _minute = value)),
+        _buildTimeInput(
+            "Giây", _second, (value) => setState(() => _second = value)),
+      ],
+    );
+  }
+
+  Widget _buildTimeInput(String label, int value, Function(int) onChanged) {
+    return Column(
       children: [
         Text(
-          "$label: ",
-          style: TextStyle(fontSize: 20),
+          label,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
+        SizedBox(height: 10),
         Container(
-          width: 100,
+          width: 80,
           child: TextField(
             keyboardType: TextInputType.number,
+            textAlign: TextAlign.center,
             decoration: InputDecoration(
-              hintText: label,
               border: OutlineInputBorder(),
+              hintText: "0",
             ),
             onChanged: (val) {
               int? parsedValue = int.tryParse(val);
@@ -190,7 +215,6 @@ class _TimerScreenState extends State<TimerScreen> {
                 onChanged(parsedValue);
               }
             },
-            style: TextStyle(fontSize: 20),
           ),
         ),
       ],
