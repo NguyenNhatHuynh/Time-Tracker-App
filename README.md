@@ -65,7 +65,7 @@ Dự án sử dụng Flutter để phát triển ứng dụng di động với c
 ### Chức Năng Ứng Dụng
 - [ ] Hiển thị giờ hiện tại: Hiển thị thời gian theo múi giờ thiết bị.
 - [ ] Đếm ngược: Cho phép đếm ngược tới thời gian được thiết lập.
-- [ ] Hẹn giờ và thông báo: Tính năng hẹn giờ và gửi thông báo khi hết giờ.
+- [x] Hẹn giờ và thông báo: Tính năng hẹn giờ và gửi thông báo khi hết giờ.
 - [ ] Chế độ sáng/tối: Chuyển đổi giữa chế độ sáng và tối.
 - [ ] Giờ thế giới: Hiển thị giờ thực tế của các quốc gia trên thế giới.
 - [ ] Chức năng bấm giờ: Cung cấp đồng hồ bấm giờ cho người dùng.
@@ -74,7 +74,7 @@ Dự án sử dụng Flutter để phát triển ứng dụng di động với c
 - [ ] Trang chủ: Hiển thị các chức năng chính và các thông tin hiện tại.
 - [ ] Màn hình hiển thị giờ hiện tại: Hiển thị giờ theo múi giờ của thiết bị.
 - [ ] Màn hình đếm ngược: Hiển thị đồng hồ đếm ngược và tính năng thông báo.
-- [ ] Màn hình hẹn giờ: Cho phép người dùng thiết lập thời gian hẹn giờ.
+- [x] Màn hình hẹn giờ: Cho phép người dùng thiết lập thời gian hẹn giờ.
 - [ ] Màn hình giờ thế giới: Hiển thị giờ các quốc gia khác nhau.
 - [ ] Màn hình bấm giờ: Cung cấp đồng hồ bấm giờ.
 
