@@ -74,6 +74,8 @@ class _BaseScreenState extends State<BaseScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Time Management App'),
@@ -108,6 +110,9 @@ class _BaseScreenState extends State<BaseScreen> {
             label: 'Bấm Giờ',
           ),
         ],
+        selectedItemColor: isDarkMode ? Colors.amber : Colors.blue,
+        unselectedItemColor: isDarkMode ? Colors.grey[400] : Colors.grey[700],
+        backgroundColor: isDarkMode ? Colors.black : Colors.white,
       ),
     );
   }
@@ -152,7 +157,6 @@ class HomeContent extends StatelessWidget {
     required String label,
     required String routeName,
   }) {
-    // Lấy màu dựa trên chế độ sáng/tối
     final iconColor = Theme.of(context).brightness == Brightness.dark
         ? Colors.white
         : Colors.black;
@@ -167,7 +171,7 @@ class HomeContent extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 48, color: iconColor), // Sử dụng màu đã xác định
+            Icon(icon, size: 48, color: iconColor),
             SizedBox(height: 8),
             Text(
               label,

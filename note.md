@@ -18,7 +18,7 @@ lib/
 │   ├── countdown_screen.dart    // Đếm ngược 
 │   ├── timer_screen.dart        // Hẹn giờ  (ok)
 │   ├── world_clock_screen.dart  // Giờ thế giới
-│   ├── stopwatch_screen.dart    // Bấm giờ
+│   ├── stopwatch_screen.dart    // Bấm giờ (ok)
 │
 ├── widgets/                     // Thư mục chứa các widget tái sử dụng
 │   ├── time_display.dart        // Widget hiển thị giờ
