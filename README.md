@@ -81,4 +81,4 @@ Dự án sử dụng Flutter để phát triển ứng dụng di động với c
 
 ## Tác giả 👨‍💻
 Tôi sẽ rất cảm kích nếu bạn có thể cho kho lưu trữ này một ngôi sao 🌟. Nó sẽ giúp những người khác khám phá ra điều này. Cảm ơn vì sự hỗ trợ của bạn [Xoan Dev]👨‍💻
-- [x] Status Project: Pending
+- [x] status Project: Final
