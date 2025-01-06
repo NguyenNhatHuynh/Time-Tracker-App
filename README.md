@@ -32,6 +32,9 @@ Dự án sử dụng Flutter để phát triển ứng dụng di động với c
 - **Provider**: Quản lý trạng thái cho ứng dụng.
 - **Shared Preferences**: Lưu trữ các tùy chọn chế độ sáng/tối và các cài đặt khác.
 
+## Link Video Demo
+[Link Video Youtube](#)
+
 ## Screenshots
 <img src="https://imgur.com/6ul7DYt.png" alt="Banner" style="width: 100%; height: auto; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
 <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
