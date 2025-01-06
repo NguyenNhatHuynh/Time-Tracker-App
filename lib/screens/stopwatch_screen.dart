@@ -68,9 +68,9 @@ class _StopwatchScreenState extends State<StopwatchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Bấm Giờ", style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.blueAccent,
-      ),
+          title: Text("Bấm Giờ", style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.blueAccent,
+          automaticallyImplyLeading: false),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

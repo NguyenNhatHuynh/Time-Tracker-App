@@ -417,7 +417,10 @@ class _WorldClockScreenState extends State<WorldClockScreen> {
     final filteredTimeZones = _filterTimeZones();
 
     return Scaffold(
-      appBar: AppBar(title: Text("World Clock")),
+      appBar: AppBar(
+          title: Text("Giờ thế giới", style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.blueAccent,
+          automaticallyImplyLeading: false),
       body: Column(
         children: [
           Padding(
@@ -451,7 +454,7 @@ class _WorldClockScreenState extends State<WorldClockScreen> {
                 Expanded(
                   child: TextField(
                     decoration: InputDecoration(
-                      labelText: "Search Country",
+                      labelText: "Tìm kiếm quốc gia",
                       border: OutlineInputBorder(),
                     ),
                     onChanged: (value) {

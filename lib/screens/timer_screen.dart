@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:audioplayers/audioplayers.dart';
+// import 'package:audioplayers/audioplayers.dart';
 
 class TimerScreen extends StatefulWidget {
   @override
@@ -16,16 +16,16 @@ class _TimerScreenState extends State<TimerScreen> {
 
   late String _timerText;
 
-  late AudioPlayer _audioPlayer;
-  late AudioCache _audioCache;
+  // late AudioPlayer _audioPlayer;
+  // late AudioCache _audioCache;
 
   @override
   void initState() {
     super.initState();
     _totalSeconds = 0;
     _timerText = "00:00:00";
-    _audioPlayer = AudioPlayer();
-    _audioCache = AudioCache();
+    // _audioPlayer = AudioPlayer();
+    // _audioCache = AudioCache();
   }
 
   void _updateTimer() {
@@ -60,14 +60,14 @@ class _TimerScreenState extends State<TimerScreen> {
         _timerText = "00:00:00";
       });
 
-      _playSound();
+      // _playSound();
       _showTimeUpDialog();
     }
   }
 
-  void _playSound() async {
-    await _audioCache.play('assets/hetgio_notification.mp3');
-  }
+  // void _playSound() async {
+  //   await _audioCache.play('assets/hetgio_notification.mp3');
+  // }
 
   void _showTimeUpDialog() {
     showDialog(
@@ -118,9 +118,9 @@ class _TimerScreenState extends State<TimerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Hẹn Giờ", style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.blueAccent,
-      ),
+          title: Text("Hẹn Giờ", style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.blueAccent,
+          automaticallyImplyLeading: false),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(

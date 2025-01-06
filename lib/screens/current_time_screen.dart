@@ -44,10 +44,10 @@ class _CurrentTimeScreenState extends State<CurrentTimeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Hiển thị giờ hiện tại",
-            style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.blueAccent,
-      ),
+          title: Text("Hiển thị giờ hiện tại",
+              style: TextStyle(color: Colors.white)),
+          backgroundColor: Colors.blueAccent,
+          automaticallyImplyLeading: false),
       body: Center(
         child: Text(
           _currentTime,

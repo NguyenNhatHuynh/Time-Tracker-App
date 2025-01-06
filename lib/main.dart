@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Time Management App',
+      title: 'Time Tracker ⏰',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         brightness: Brightness.light,
@@ -81,7 +81,7 @@ class _BaseScreenState extends State<BaseScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Time Management App'),
+        title: Text('Time Tracker'),
         actions: [
           IconButton(
             icon: Icon(Icons.brightness_6),
@@ -101,31 +101,39 @@ class _BaseScreenState extends State<BaseScreen> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.timer),
+            icon: Icon(Icons.alarm),
             label: 'Hẹn Giờ',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.access_time),
-            label: 'Hiển thị giờ hiện tại',
+            label: 'Giờ hiện tại',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.access_time),
+            icon: Icon(Icons.timer_10),
             label: 'Bấm Giờ',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.access_time),
+            icon: Icon(Icons.language),
             label: 'Giờ Thế Giới',
           ),
         ],
         selectedItemColor: isDarkMode ? Colors.amber : Colors.blue,
         unselectedItemColor: isDarkMode ? Colors.grey[400] : Colors.grey[700],
         backgroundColor: isDarkMode ? Colors.black : Colors.white,
+        type: BottomNavigationBarType.fixed, // Thêm kiểu fixed để dễ căn giữa
       ),
     );
   }
 }
 
-class HomeContent extends StatelessWidget {
+class HomeContent extends StatefulWidget {
+  @override
+  _HomeContentState createState() => _HomeContentState();
+}
+
+class _HomeContentState extends State<HomeContent> {
+  double cardElevation = 6;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -140,24 +148,28 @@ class HomeContent extends StatelessWidget {
             icon: Icons.timer,
             label: 'Hẹn Giờ',
             routeName: '/timer',
+            color: Colors.orange,
           ),
           _buildFeatureCard(
             context,
             icon: Icons.access_time,
             label: 'Hiển thị giờ hiện tại',
             routeName: '/current_time',
+            color: Colors.green,
           ),
           _buildFeatureCard(
             context,
-            icon: Icons.access_time,
+            icon: Icons.timer_10,
             label: 'Bấm Giờ',
             routeName: '/stopwatch',
+            color: Colors.blue,
           ),
           _buildFeatureCard(
             context,
             icon: Icons.language,
             label: 'Giờ Thế Giới',
             routeName: '/world_clock',
+            color: Colors.purple,
           ),
         ],
       ),
@@ -169,6 +181,7 @@ class HomeContent extends StatelessWidget {
     required IconData icon,
     required String label,
     required String routeName,
+    required Color color,
   }) {
     final iconColor = Theme.of(context).brightness == Brightness.dark
         ? Colors.white
@@ -177,21 +190,34 @@ class HomeContent extends StatelessWidget {
     return GestureDetector(
       onTap: () => Navigator.pushNamed(context, routeName),
       child: Card(
-        elevation: 4,
+        elevation: cardElevation, // Dùng biến cardElevation cho hiệu ứng shadow
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-           Icon(icon, size: 48, color: iconColor),
-            SizedBox(height: 8),
-            Text(
-              label,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-          ],
+        color: color.withOpacity(0.8), // Màu nền thẻ
+        child: MouseRegion(
+          onEnter: (_) {
+            setState(() {
+              cardElevation = 8; // Tăng hiệu ứng shadow khi hover
+            });
+          },
+          onExit: (_) {
+            setState(() {
+              cardElevation = 6; // Quay lại shadow ban đầu khi rời hover
+            });
+          },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, size: 48, color: iconColor),
+              SizedBox(height: 8),
+              Text(
+                label,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
         ),
       ),
     );
