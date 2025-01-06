@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:time_tracker/screens/world_clock_screen.dart';
 import 'package:time_tracker/utils/theme_manager.dart';
 import 'package:time_tracker/screens/timer_screen.dart';
 import 'package:time_tracker/screens/current_time_screen.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         '/timer': (context) => BaseScreen(selectedIndex: 1),
         '/current_time': (context) => BaseScreen(selectedIndex: 2),
         '/stopwatch': (context) => BaseScreen(selectedIndex: 3),
+        '/world_clock': (context) => BaseScreen(selectedIndex: 4),
       },
     );
   }
@@ -58,6 +60,7 @@ class _BaseScreenState extends State<BaseScreen> {
     TimerScreen(),
     CurrentTimeScreen(),
     StopwatchScreen(),
+    WorldClockScreen(),
   ];
 
   @override
@@ -109,6 +112,10 @@ class _BaseScreenState extends State<BaseScreen> {
             icon: Icon(Icons.access_time),
             label: 'Bấm Giờ',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.access_time),
+            label: 'Giờ Thế Giới',
+          ),
         ],
         selectedItemColor: isDarkMode ? Colors.amber : Colors.blue,
         unselectedItemColor: isDarkMode ? Colors.grey[400] : Colors.grey[700],
@@ -146,6 +153,12 @@ class HomeContent extends StatelessWidget {
             label: 'Bấm Giờ',
             routeName: '/stopwatch',
           ),
+          _buildFeatureCard(
+            context,
+            icon: Icons.language,
+            label: 'Giờ Thế Giới',
+            routeName: '/world_clock',
+          ),
         ],
       ),
     );
@@ -171,7 +184,7 @@ class HomeContent extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 48, color: iconColor),
+           Icon(icon, size: 48, color: iconColor),
             SizedBox(height: 8),
             Text(
               label,

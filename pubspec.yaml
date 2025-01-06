@@ -36,7 +36,9 @@ dependencies:
   # Thêm thư viện provider
   provider: ^6.0.5
   audioplayers: ^0.20.1 # Kiểm tra phiên bản mới nhất tại pub.dev
-
+  intl: ^0.18.0
+  timezone: ^0.9.1
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
