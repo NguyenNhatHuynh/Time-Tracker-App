@@ -33,12 +33,13 @@ Dự án sử dụng Flutter để phát triển ứng dụng di động với c
 - **Shared Preferences**: Lưu trữ các tùy chọn chế độ sáng/tối và các cài đặt khác.
 
 ## Screenshots
-<!-- <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-    <img src="https://imgur.com/Y1Ms68J.png" alt="Image 1" style="width: 48%; height: auto; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
-    <img src="https://imgur.com/0TqdjD3.png" alt="Image 2" style="width: 48%; height: auto; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
-    <img src="https://imgur.com/39KTSP8.png" alt="Image 3" style="width: 48%; height: auto; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
-    <img src="https://imgur.com/P35jNx3.png" alt="Image 4" style="width: 48%; height: auto; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
-</div> -->
+<img src="https://imgur.com/6ul7DYt.png" alt="Banner" style="width: 100%; height: auto; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+    <img src="https://imgur.com/xYwl2e7.png" alt="Image 1" style="width: 48%; height: auto; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+    <img src="https://imgur.com/ZFZBi6f.png" alt="Image 2" style="width: 48%; height: auto; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+    <img src="https://imgur.com/zDW6sva.png" alt="Image 3" style="width: 48%; height: auto; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+    <img src="https://imgur.com/xeMopPx.png" alt="Image 4" style="width: 48%; height: auto; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+</div>
 
 ## Hướng Dẫn Cài Đặt 🛠️
 ### Điều Kiện
